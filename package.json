@@ -1,0 +1,25 @@
+{
+  "name": "nelmani-fresh",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nelmani Fresh — Premium Kerala Heritage Rice E-Commerce Platform",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:api": "turbo run dev --filter=api",
+    "db:migrate": "cd apps/api && alembic upgrade head",
+    "db:revision": "cd apps/api && alembic revision --autogenerate"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.14.4",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

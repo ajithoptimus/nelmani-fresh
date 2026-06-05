@@ -1,0 +1,57 @@
+# Global gitignore for Nelmani Fresh monorepo
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+.env*.local
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+.turbo/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Alembic
+# (Keep versions tracked in git)
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Uploads (local dev)
+uploads/
+
+# Temporary scaffold (delete after setup)
+apps/web-scaffold/
+
+# Lock files — keep package-lock.json but ignore Python lock
+# (Uncomment to ignore: apps/web/package-lock.json)

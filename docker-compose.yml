@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  # PostgreSQL (local dev only — production uses Neon)
+  postgres:
+    image: postgres:16-alpine
+    container_name: nelmani_postgres
+    environment:
+      POSTGRES_USER: nelmani
+      POSTGRES_PASSWORD: nelmani_dev_password
+      POSTGRES_DB: nelmani_fresh
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nelmani -d nelmani_fresh"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+      target: production
+    container_name: nelmani_api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://nelmani:nelmani_dev_password@postgres:5432/nelmani_fresh
+      - DEBUG=true
+      - ENVIRONMENT=development
+      - SECRET_KEY=local-dev-secret-key-change-for-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./apps/api/src:/app/src:ro
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
