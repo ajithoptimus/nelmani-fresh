@@ -6,11 +6,17 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-gradient-to-br from-green-950 via-green-900 to-green-800">
-      {/* Background texture overlay */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(212,175,55,0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(212,175,55,0.1),transparent_50%)]" />
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-green-950">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero-paddy.png"
+          alt="Lush green paddy fields in Kerala"
+          fill
+          priority
+          className="object-cover opacity-40 mix-blend-luminosity"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-green-950 via-green-900/60 to-green-900/40" />
       </div>
 
       {/* Grain texture overlay */}
@@ -123,12 +129,19 @@ export function HeroSection() {
               <div className="absolute inset-0 bg-amber-400/20 rounded-full blur-3xl scale-110" />
 
               {/* Main image container */}
-              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 aspect-square max-w-lg mx-auto">
-                <div className="w-full h-full bg-gradient-to-br from-green-800 to-green-950 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="text-8xl mb-4">🌾</div>
-                    <p className="text-green-200 text-lg font-medium">Kerala Rice Fields</p>
-                    <p className="text-green-400 text-sm mt-1">Heritage • Fresh • Pure</p>
+              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 aspect-square max-w-lg mx-auto group">
+                <div className="w-full h-full relative">
+                  <Image
+                    src="/images/red-rice-bowl.png"
+                    alt="Premium traditional Kerala red Matta rice in an antique brass bowl"
+                    fill
+                    priority
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-950/90 via-green-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-amber-400 text-xl font-bold tracking-wide mb-1">Rakthashali Red Rice</p>
+                    <p className="text-green-100 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Traditionally Cultivated • Premium Quality</p>
                   </div>
                 </div>
               </div>
