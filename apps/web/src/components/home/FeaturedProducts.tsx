@@ -91,7 +91,7 @@ const FALLBACK_PRODUCTS: ProductListItem[] = [
     name: "Rakthashali Rice",
     short_description: "Traditional Kerala red rice variety known for its rich color and heritage value.",
     is_featured: true,
-    primary_image: null,
+    primary_image: "/images/product_rakthashali.png",
     starting_price: 180,
   },
   {
@@ -100,7 +100,7 @@ const FALLBACK_PRODUCTS: ProductListItem[] = [
     name: "Uma Matta Rice",
     short_description: "Traditional Kerala Matta rice suitable for daily family consumption.",
     is_featured: true,
-    primary_image: null,
+    primary_image: "/images/product_uma_matta.png",
     starting_price: 120,
   },
   {
@@ -109,7 +109,7 @@ const FALLBACK_PRODUCTS: ProductListItem[] = [
     name: "Ponmani Matta Rice",
     short_description: "Premium Kerala Matta rice with rich flavor and texture.",
     is_featured: true,
-    primary_image: null,
+    primary_image: "/images/product_ponmani_matta.png",
     starting_price: 150,
   },
 ];
