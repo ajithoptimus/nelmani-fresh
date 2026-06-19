@@ -1,43 +1,32 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import Image from "next/image";
 
 const features = [
   {
-    icon: "🌾",
+    image: "/images/feature_fresh.png",
     title: "Processed After Order",
     description:
       "We begin processing only after you place your order. No pre-stocked, aged inventory.",
-    color: "from-green-500/10 to-green-600/5",
-    border: "border-green-500/20",
-    iconBg: "bg-green-100",
   },
   {
-    icon: "🏺",
+    image: "/images/feature_heritage.png",
     title: "Heritage Rice Varieties",
     description:
       "Traditional Kerala varieties — Rakthashali, Uma Matta, Ponmani Matta — cultivated with generational care.",
-    color: "from-amber-500/10 to-amber-600/5",
-    border: "border-amber-500/20",
-    iconBg: "bg-amber-100",
   },
   {
-    icon: "🚜",
+    image: "/images/feature_source.png",
     title: "Direct From Source",
     description:
       "Sourced directly from Kerala paddy fields. Fewer hands, shorter supply chain, better quality.",
-    color: "from-emerald-500/10 to-emerald-600/5",
-    border: "border-emerald-500/20",
-    iconBg: "bg-emerald-100",
   },
   {
-    icon: "📦",
+    image: "/images/feature_quality.png",
     title: "Small Batch Quality",
     description:
       "Each batch is carefully processed, quality-checked, and hygienically packed in small quantities.",
-    color: "from-teal-500/10 to-teal-600/5",
-    border: "border-teal-500/20",
-    iconBg: "bg-teal-100",
   },
 ];
 
@@ -90,15 +79,20 @@ export function WhyChooseUs() {
               key={feature.title}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className={`relative p-6 rounded-2xl bg-gradient-to-br ${feature.color} border ${feature.border} group cursor-default`}
+              className="relative overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-default"
             >
-              <div
-                className={`w-14 h-14 ${feature.iconBg} rounded-xl flex items-center justify-center text-2xl mb-5 shadow-sm group-hover:scale-110 transition-transform duration-300`}
-              >
-                {feature.icon}
+              <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+                <Image
+                  src={feature.image}
+                  alt={feature.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-              <h3 className="font-bold text-gray-900 text-lg mb-3">{feature.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+              <div className="p-6">
+                <h3 className="font-bold text-gray-900 text-lg mb-3">{feature.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
