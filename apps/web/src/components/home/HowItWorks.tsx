@@ -1,39 +1,40 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const steps = [
   {
     number: "01",
-    icon: "🛒",
+    image: "/images/timeline_order.png",
     title: "Customer Orders",
     description: "You place your order through our website. Payment confirmed.",
     color: "bg-green-600",
   },
   {
     number: "02",
-    icon: "⚙️",
+    image: "/images/timeline_processing.png",
     title: "Processing Begins",
     description: "We begin milling and processing your selected rice variety fresh.",
     color: "bg-amber-600",
   },
   {
     number: "03",
-    icon: "📦",
+    image: "/images/timeline_packing.png",
     title: "Fresh Packing",
     description: "Rice is hygienically packed in food-grade packaging immediately after processing.",
     color: "bg-teal-600",
   },
   {
     number: "04",
-    icon: "✅",
+    image: "/images/timeline_quality.png",
     title: "Quality Check",
     description: "Every batch passes our quality verification before shipping.",
     color: "bg-green-700",
   },
   {
     number: "05",
-    icon: "🚚",
+    image: "/images/timeline_delivery.png",
     title: "Delivered Fresh",
     description: "Shipped within 3 working days of your order. Fresh to your door.",
     color: "bg-emerald-600",
@@ -84,23 +85,30 @@ export function HowItWorks() {
                 {/* Step circle */}
                 <div className="relative z-10 flex-shrink-0">
                   <div
-                    className={`w-16 h-16 ${step.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-black/10`}
+                    className={`w-12 h-12 ${step.color} rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-black/10`}
                   >
-                    {step.icon}
-                  </div>
-                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-white text-gray-900 rounded-full text-xs font-bold flex items-center justify-center shadow border border-gray-100">
                     {step.number}
-                  </span>
+                  </div>
                 </div>
 
                 {/* Content */}
                 <div
-                  className={`flex-1 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${
-                    index % 2 === 0 ? "sm:mr-[50%] sm:pr-8" : "sm:ml-[50%] sm:pl-8"
+                  className={`flex-1 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${
+                    index % 2 === 0 ? "sm:mr-[10%] lg:mr-[50%] lg:pr-8" : "sm:ml-[10%] lg:ml-[50%] lg:pl-8"
                   }`}
                 >
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">{step.title}</h3>
-                  <p className="text-gray-500 leading-relaxed">{step.description}</p>
+                  <div className="relative h-48 w-full bg-gray-100">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-bold text-gray-900 text-lg mb-2">{step.title}</h3>
+                    <p className="text-gray-500 leading-relaxed">{step.description}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
