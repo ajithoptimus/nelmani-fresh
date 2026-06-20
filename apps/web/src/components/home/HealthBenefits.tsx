@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const benefits = [
   {
@@ -42,18 +43,14 @@ export function HealthBenefits() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-green-800 to-green-950 aspect-square max-w-md">
-              <div className="w-full h-full flex items-center justify-center p-12">
-                <div className="text-center">
-                  <div className="text-8xl mb-6">🌾</div>
-                  <h3 className="text-white text-2xl font-bold mb-2">Traditional Goodness</h3>
-                  <p className="text-green-300">Rakthashali • Uma Matta • Ponmani</p>
-                </div>
-              </div>
-
-              {/* Decorative circles */}
-              <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-amber-400/10 rounded-full" />
-              <div className="absolute -top-8 -left-8 w-32 h-32 bg-green-400/10 rounded-full" />
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-green-900/20 aspect-square max-w-md mx-auto lg:mx-0 group">
+              <Image
+                src="/images/benefits_goodness.png"
+                alt="Traditional Kerala red rice on a fresh green banana leaf"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-green-950/80 via-transparent to-transparent opacity-80" />
             </div>
 
             {/* Stat cards */}
