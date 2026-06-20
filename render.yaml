@@ -1,0 +1,29 @@
+services:
+  # FastAPI Backend
+  - type: web
+    name: nelmani-fresh-api
+    env: python
+    buildCommand: "cd apps/api && pip install -r requirements.txt && alembic upgrade head"
+    startCommand: "cd apps/api && uvicorn src.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        sync: false # You will paste your Neon connection string here in the Render dashboard
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: FRONTEND_URL
+        value: https://nelmani-fresh-web.onrender.com
+
+  # Next.js Frontend
+  - type: web
+    name: nelmani-fresh-web
+    env: node
+    buildCommand: "cd apps/web && npm install && npm run build"
+    startCommand: "cd apps/web && npm start"
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: nelmani-fresh-api
+          envVarKey: RENDER_EXTERNAL_URL
