@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -18,10 +19,24 @@ export default function AboutPage() {
   return (
     <main className="pt-20">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-green-950 to-green-800 text-white py-20">
-        <div className="container mx-auto px-6 lg:px-8 text-center max-w-3xl">
-          <h1 className="text-5xl font-bold mb-6">Our Story</h1>
-          <p className="text-green-200 text-xl leading-relaxed">
+      <div className="relative text-white py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/about_hero.png"
+            alt="Lush green paddy fields in Kerala"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-green-950/80 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-green-950 via-transparent to-transparent opacity-80" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-6 lg:px-8 text-center max-w-3xl">
+          <h1 className="text-5xl lg:text-6xl font-bold mb-6 drop-shadow-md">Our Story</h1>
+          <p className="text-green-50 text-xl leading-relaxed drop-shadow">
             Nelmani Fresh was born from a simple belief: rice should reach you fresh, not
             months after processing. We honour Kerala's heritage rice traditions while bringing
             freshness you can taste.
@@ -49,13 +64,22 @@ export default function AboutPage() {
                 confirmation.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-green-50 to-amber-50 rounded-3xl p-10 text-center">
-              <div className="text-7xl mb-4">🌾</div>
-              <p className="text-green-800 font-bold text-xl mb-2">SyntharaSight Private Limited</p>
-              <p className="text-gray-500 text-sm">Parent Company</p>
-              <div className="mt-6 pt-6 border-t border-green-100">
-                <p className="text-green-700 font-semibold">Nelmani Fresh</p>
-                <p className="text-gray-400 text-sm">Kerala Heritage Rice Brand</p>
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-white border border-gray-100 group">
+              <div className="relative h-64 w-full bg-green-900">
+                <Image
+                  src="/images/about_mission.png"
+                  alt="Farmer hands holding Kerala red rice"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-8 text-center">
+                <p className="text-green-800 font-bold text-xl mb-1">SyntharaSight Private Limited</p>
+                <p className="text-gray-500 text-sm">Parent Company</p>
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <p className="text-green-700 font-semibold">Nelmani Fresh</p>
+                  <p className="text-gray-400 text-sm">Kerala Heritage Rice Brand</p>
+                </div>
               </div>
             </div>
           </div>
