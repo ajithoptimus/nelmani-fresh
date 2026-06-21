@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, or_
 from sqlalchemy.orm import selectinload
 from fastapi import HTTPException, status
-from python_slugify import slugify
+from slugify import slugify
 
 from src.products.models import Product, ProductVariant, ProductImage
 from src.products.schemas import (
