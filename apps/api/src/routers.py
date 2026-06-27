@@ -399,17 +399,38 @@ class UploadResponse(BaseModel):
 
 @uploads_router.post("/image", response_model=UploadResponse)
 async def upload_image(
+    request: Request,
     file: UploadFile = File(...),
     folder: str = "nelmani-products",
     _: User = Depends(get_current_admin),
 ):
-    """Upload an image to Cloudinary. Admin only."""
+    """Upload an image to Cloudinary or local fallback. Admin only."""
+    contents = await file.read()
+    
+    if not settings.CLOUDINARY_API_KEY:
+        import os
+        import uuid
+        from pathlib import Path
+        upload_dir = Path("public/uploads")
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        filename = f"{uuid.uuid4()}_{file.filename}"
+        file_path = upload_dir / filename
+        with open(file_path, "wb") as f:
+            f.write(contents)
+            
+        base_url = str(request.base_url).rstrip("/")
+        return UploadResponse(
+            url=f"{base_url}/api/v1/uploads/{filename}",
+            public_id=filename,
+            width=800,
+            height=800,
+        )
+
     cloudinary.config(
         cloud_name=settings.CLOUDINARY_CLOUD_NAME,
         api_key=settings.CLOUDINARY_API_KEY,
         api_secret=settings.CLOUDINARY_API_SECRET,
     )
-    contents = await file.read()
     result = cloudinary.uploader.upload(
         contents,
         folder=folder,

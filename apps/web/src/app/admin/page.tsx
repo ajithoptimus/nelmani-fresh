@@ -22,8 +22,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isAuthenticated) { router.push("/login"); return; }
-    if (user?.role !== "admin") { router.push("/"); return; }
+    if (!isAuthenticated) return;
+    if (user?.role !== "admin") return;
     loadOverview();
   }, [isAuthenticated, user]);
 
@@ -48,90 +48,53 @@ export default function AdminDashboard() {
     : [];
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Admin Header */}
-      <div className="bg-green-950 text-white px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-green-700 rounded-lg flex items-center justify-center font-bold">N</div>
-            <span className="font-bold">Nelmani Admin</span>
-          </Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-green-300 text-sm">{user?.email}</span>
-          <Link href="/" className="text-sm text-green-400 hover:text-white transition-colors">
-            ← Back to Store
-          </Link>
-        </div>
+    <>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-500 text-sm mt-1">Welcome back, {user?.full_name || user?.email}</p>
       </div>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-56 min-h-[calc(100vh-56px)] bg-white border-r border-gray-100 p-4">
-          <nav className="space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors font-medium text-sm"
-              >
-                <span className="text-lg">{item.icon}</span>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <div className="flex-1 p-8">
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-500 text-sm mt-1">Welcome back, {user?.full_name || user?.email}</p>
-          </div>
-
-          {loading ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-28 bg-white rounded-2xl border border-gray-100 animate-pulse" />
-              ))}
-            </div>
-          ) : (
+      {loading ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="h-28 bg-white rounded-2xl border border-gray-100 animate-pulse" />
+          ))}
+        </div>
+      ) : (
+        <motion.div
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          {metrics.map((metric, i) => (
             <motion.div
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              key={metric.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="bg-white rounded-2xl border border-gray-100 p-6"
             >
-              {metrics.map((metric, i) => (
-                <motion.div
-                  key={metric.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="bg-white rounded-2xl border border-gray-100 p-6"
-                >
-                  <div className={`w-12 h-12 ${metric.color} rounded-xl flex items-center justify-center text-2xl mb-4`}>
-                    {metric.icon}
-                  </div>
-                  <p className="text-3xl font-bold text-gray-900 mb-1">{metric.value}</p>
-                  <p className="text-gray-400 text-sm">{metric.label}</p>
-                </motion.div>
-              ))}
+              <div className={`w-12 h-12 ${metric.color} rounded-xl flex items-center justify-center text-2xl mb-4`}>
+                {metric.icon}
+              </div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{metric.value}</p>
+              <p className="text-gray-400 text-sm">{metric.label}</p>
             </motion.div>
-          )}
+          ))}
+        </motion.div>
+      )}
 
-          {/* Quick links */}
-          <div className="mt-8 grid sm:grid-cols-2 gap-4">
-            <Link href="/admin/orders" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-green-200 hover:shadow-sm transition-all group">
-              <h3 className="font-bold text-gray-900 mb-1 group-hover:text-green-700">📦 Manage Orders</h3>
-              <p className="text-sm text-gray-400">View and update order processing status</p>
-            </Link>
-            <Link href="/admin/products" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-green-200 hover:shadow-sm transition-all group">
-              <h3 className="font-bold text-gray-900 mb-1 group-hover:text-green-700">🌾 Manage Products</h3>
-              <p className="text-sm text-gray-400">Add, edit, and manage rice varieties</p>
-            </Link>
-          </div>
-        </div>
+      {/* Quick links */}
+      <div className="mt-8 grid sm:grid-cols-2 gap-4">
+        <Link href="/admin/orders" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-green-200 hover:shadow-sm transition-all group">
+          <h3 className="font-bold text-gray-900 mb-1 group-hover:text-green-700">📦 Manage Orders</h3>
+          <p className="text-sm text-gray-400">View and update order processing status</p>
+        </Link>
+        <Link href="/admin/products" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-green-200 hover:shadow-sm transition-all group">
+          <h3 className="font-bold text-gray-900 mb-1 group-hover:text-green-700">🌾 Manage Products</h3>
+          <p className="text-sm text-gray-400">Add, edit, and manage rice varieties</p>
+        </Link>
       </div>
-    </main>
+    </>
   );
 }

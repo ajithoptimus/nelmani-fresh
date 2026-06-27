@@ -6,6 +6,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 import logging
 
 from src.core.config import settings
@@ -54,6 +56,11 @@ def create_application() -> FastAPI:
         allow_headers=["*"],
         expose_headers=["X-Total-Count"],
     )
+
+    # ── Static Files ───────────────────────────────────────────────────────────
+    uploads_dir = Path("public/uploads")
+    uploads_dir.mkdir(parents=True, exist_ok=True)
+    app.mount("/api/v1/uploads", StaticFiles(directory="public/uploads"), name="uploads")
 
     # ── Health Check ───────────────────────────────────────────────────────────
     @app.get("/health", tags=["Health"])
