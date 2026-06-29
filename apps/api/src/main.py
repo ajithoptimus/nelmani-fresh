@@ -23,6 +23,7 @@ from src.routers import (
     uploads_router,
     admin_router,
 )
+from src.synthara.router import router as synthara_router
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +89,7 @@ def create_application() -> FastAPI:
     app.include_router(blog_router, prefix=API_PREFIX)
     app.include_router(uploads_router, prefix=API_PREFIX)
     app.include_router(admin_router, prefix=API_PREFIX)
+    app.include_router(synthara_router, prefix=API_PREFIX)
 
     return app
 

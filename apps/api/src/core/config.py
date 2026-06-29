@@ -61,7 +61,7 @@ class Settings(BaseSettings):
     def CORS_ORIGINS(self) -> List[str]:
         origins = [self.FRONTEND_URL]
         if self.ENVIRONMENT == "development":
-            origins.extend(["http://localhost:3000", "http://127.0.0.1:3000"])
+            origins.extend(["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"])
         return origins
 
     # ── Email ─────────────────────────────────────────────────────────────────
